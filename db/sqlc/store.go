@@ -59,7 +59,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTrxParams) (Tran
 		result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
 			FromAccountID: arg.FromAccountID,
 			ToAccountID:   arg.ToAccountID,
-			Amount:        arg.Amount,
+			Amount:        float64(arg.Amount),
 		})
 		if err != nil {
 			return err
@@ -84,6 +84,32 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTrxParams) (Tran
 		}
 
 		// TODO: Update account's balance
+		// Frost get account -> Update it
+		account1, err := q.GetAccount(ctx, arg.FromAccountID)
+		if err != nil {
+			return err
+		}
+
+		result.FromAccount, err = q.UpdateAccount(ctx, UpdateAccountParams{
+			ID:      arg.FromAccountID,
+			Balance: account1.Balance - float64(arg.Amount),
+		})
+		if err != nil {
+			return err
+		}
+
+		account2, err := q.GetAccount(ctx, arg.ToAccountID)
+		if err != nil {
+			return err
+		}
+
+		result.ToAccount, err = q.UpdateAccount(ctx, UpdateAccountParams{
+			ID:      arg.ToAccountID,
+			Balance: account2.Balance + float64(arg.Amount),
+		})
+		if err != nil {
+			return err
+		}
 
 		return nil
 	})
