@@ -66,7 +66,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 		result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
 			FromAccountID: arg.FromAccountID,
 			ToAccountID:   arg.ToAccountID,
-			Amount:        -float64(arg.Amount),
+			Amount:        float64(arg.Amount),
 		})
 		if err != nil {
 			return err
@@ -82,7 +82,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 
 		result.ToEntry, err = q.CreateEntry(ctx, CreateEntryParams{
 			AccountID: arg.ToAccountID,
-			Amount:    -float64(arg.Amount),
+			Amount:    float64(arg.Amount),
 		})
 		if err != nil {
 			return err

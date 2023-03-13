@@ -47,10 +47,12 @@ func TestTransferTx(t *testing.T) {
 
 		// check transfer
 		transfer := result.Transfer
+		println("errors : ", err)
+		println("results : ", transfer.Amount)
 		require.NotEmpty(t, transfer)
 		require.Equal(t, account1.ID, transfer.FromAccountID)
 		require.Equal(t, account2.ID, transfer.ToAccountID)
-		require.Equal(t, amount, transfer.Amount)
+		require.Equal(t, float64(amount), transfer.Amount)
 		require.NotZero(t, transfer.ID)
 		require.NotZero(t, transfer.CreatedAt)
 
@@ -61,7 +63,7 @@ func TestTransferTx(t *testing.T) {
 		fromEntry := result.FromEntry
 		require.NotEmpty(t, fromEntry)
 		require.Equal(t, account1.ID, fromEntry.AccountID)
-		require.Equal(t, -amount, fromEntry.Amount)
+		require.Equal(t, -float64(amount), fromEntry.Amount)
 		require.NotZero(t, fromEntry.ID)
 		require.NotZero(t, fromEntry.CreatedAt)
 
@@ -71,7 +73,7 @@ func TestTransferTx(t *testing.T) {
 		toEntry := result.ToEntry
 		require.NotEmpty(t, toEntry)
 		require.Equal(t, account2.ID, toEntry.AccountID)
-		require.Equal(t, amount, toEntry.Amount)
+		require.Equal(t, float64(amount), toEntry.Amount)
 		require.NotZero(t, toEntry.ID)
 		require.NotZero(t, toEntry.CreatedAt)
 
@@ -111,8 +113,8 @@ func TestTransferTx(t *testing.T) {
 
 	fmt.Println(">> after:", updatedAccount1.Balance, updatedAccount2.Balance)
 
-	require.Equal(t, int64(account1.Balance)-int64(n)*amount, updatedAccount1.Balance)
-	require.Equal(t, int64(account2.Balance)+int64(n)*amount, updatedAccount2.Balance)
+	require.Equal(t, int64(account1.Balance)-int64(n)*amount, int64(updatedAccount1.Balance))
+	require.Equal(t, int64(account2.Balance)+int64(n)*amount, int64(updatedAccount2.Balance))
 }
 
 func TestTransferTxDeadlock(t *testing.T) {
