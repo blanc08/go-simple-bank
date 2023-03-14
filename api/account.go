@@ -3,7 +3,6 @@ package api
 import (
 	db "crud/db/sqlc"
 	"database/sql"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -77,8 +76,6 @@ func (server *Server) listAccount(ctx *gin.Context) {
 		Limit:  req.Pagesize,
 		Offset: (req.PageID - 1) * req.Pagesize,
 	}
-
-	fmt.Println(arg)
 
 	accounts, err := server.store.ListAccounts(ctx, arg)
 	if err != nil {
