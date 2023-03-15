@@ -1,9 +1,10 @@
 package api
 
 import (
-	db "crud/db/sqlc"
 	"database/sql"
 	"net/http"
+
+	db "github.com/blanc08/go-simple-bank/db/sqlc"
 
 	"github.com/gin-gonic/gin"
 )

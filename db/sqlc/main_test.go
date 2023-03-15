@@ -1,11 +1,12 @@
 package db
 
 import (
-	"crud/util"
 	"database/sql"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/blanc08/go-simple-bank/util"
 
 	_ "github.com/lib/pq"
 )

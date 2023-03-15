@@ -1,11 +1,12 @@
 package main
 
 import (
-	"crud/api"
-	db "crud/db/sqlc"
-	"crud/util"
 	"database/sql"
 	"log"
+
+	"github.com/blanc08/go-simple-bank/api"
+	db "github.com/blanc08/go-simple-bank/db/sqlc"
+	"github.com/blanc08/go-simple-bank/util"
 
 	_ "github.com/lib/pq"
 )

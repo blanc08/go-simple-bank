@@ -2,10 +2,11 @@ package db
 
 import (
 	"context"
-	"crud/util"
 	"database/sql"
 	"testing"
 	"time"
+
+	"github.com/blanc08/go-simple-bank/util"
 
 	"github.com/stretchr/testify/require"
 )
