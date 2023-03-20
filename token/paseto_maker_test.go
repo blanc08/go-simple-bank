@@ -9,7 +9,7 @@ import (
 )
 
 func TestPasetoMaker(t *testing.T) {
-	maker, err := NewJWTMaker(util.RandomString(32))
+	maker, err := NewPasetoMaker(util.RandomString(32))
 	require.NoError(t, err)
 
 	username := util.RandomOwner()
