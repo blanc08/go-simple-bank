@@ -9,38 +9,38 @@ import (
 )
 
 type PasetoMaker struct {
-	paseto      *paseto.V2
-	simetricKey []byte
+	paseto       *paseto.V2
+	symmetricKey []byte
 }
 
-func NewPasetoMaker(symetricKey string) (Maker, error) {
-	if len(symetricKey) != chacha20poly1305.KeySize {
-		return nil, fmt.Errorf("invalid symetric key: must be exacly %d character", chacha20poly1305.KeySize)
+func NewPasetoMaker(symmetricKey string) (Maker, error) {
+	if len(symmetricKey) != chacha20poly1305.KeySize {
+		return nil, fmt.Errorf("invalid symmetric key: must be exactly %d character", chacha20poly1305.KeySize)
 	}
 
 	maker := &PasetoMaker{
-		paseto:      paseto.NewV2(),
-		simetricKey: []byte(symetricKey),
+		paseto:       paseto.NewV2(),
+		symmetricKey: []byte(symmetricKey),
 	}
 
 	return maker, nil
 }
 
-// CreateToken create and sign a new token for a spesific username and duration
+// CreateToken create and sign a new token for a specific username and duration
 func (maker *PasetoMaker) CreateToken(username string, duration time.Duration) (string, error) {
 	payload, err := NewPayload(username, duration)
 	if err != nil {
 		return "", err
 	}
 
-	return maker.paseto.Encrypt(maker.simetricKey, payload, nil)
+	return maker.paseto.Encrypt(maker.symmetricKey, payload, nil)
 }
 
 // VerifyToken will check if token is invalid or not
 func (maker *PasetoMaker) VerifyToken(token string) (*Payload, error) {
 	payload := &Payload{}
 
-	err := maker.paseto.Decrypt(token, maker.simetricKey, payload, nil)
+	err := maker.paseto.Decrypt(token, maker.symmetricKey, payload, nil)
 	if err != nil {
 		return nil, ErrInvalidToken
 	}
