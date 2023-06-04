@@ -7,7 +7,7 @@ import (
 )
 
 // Stores all configuration of the application
-// The value are read by viper from a config file for enviroment variables.
+// The value are read by viper from a config file for environment variables.
 type Config struct {
 	DBDriver            string        `mapstructure:"DB_DRIVER"`
 	DBSource            string        `mapstructure:"DB_SOURCE"`
@@ -16,7 +16,7 @@ type Config struct {
 	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 }
 
-// LoadConfig read configuration from file or enviroment variables
+// LoadConfig read configuration from file or environment variables
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigName("app")
