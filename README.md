@@ -7,3 +7,6 @@ docker network create bank-network
 
 - Create a new migration :
     migrate create -ext sql -dir db/migration -seq <migration_name>
+
+- Database Doc
+    https://dbdocs.io/bagusoktaviadi1/simple_bank
