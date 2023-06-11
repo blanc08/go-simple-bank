@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "grpcgateway",
+        "mtdt",
         "protobuf",
         "protojson",
         "timestamppb"
